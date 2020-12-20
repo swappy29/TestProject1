@@ -1,9 +1,11 @@
 package tests;
-
+import data.Read_write_excelfiles;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import data.Read_write_excelfiles;
 import pages.LoginPage;
+import utilities.XLS_Reader;
 
 import org.testng.annotations.BeforeMethod;
 
@@ -19,12 +21,8 @@ import org.testng.annotations.AfterMethod;
 public class LoginTest {
     public WebDriver driver;
     LoginPage lp=new LoginPage();
-    String CorrectEmail;
-    String WrongEmail;
-    String WrongPassword;
-    String EmailErr_msg;
-    String PasswordErr_msg;
-    
+    Read_write_excelfiles r=new Read_write_excelfiles();
+   
     
   @BeforeMethod
   public void beforeMethod() {
@@ -41,10 +39,10 @@ public class LoginTest {
   
   @Test
   public void LoginWrongPasswordTest() throws InterruptedException {
-	lp.EnterUsername(CorrectEmail);
-	lp.EnterPassword(WrongPassword);
+	lp.EnterUsername(r.CorrectEmail);
+	lp.EnterPassword(r.WrongPassword);
 	String Actual=lp.ReadPasswordErrorMessage();
-	String expected=PasswordErr_msg;
+	String expected=r.PasswordErr_msg;
 	Assert.assertEquals(Actual, expected);
 
 	 
@@ -53,10 +51,10 @@ public class LoginTest {
 		}
   @Test
   public void LoginWrongEmailTest() throws InterruptedException {
-	  lp.EnterUsername(WrongEmail);
+	  lp.EnterUsername(r.WrongEmail);
 	
 	String Actual=lp.ReadEmailErrorMessage();
-	String expected=EmailErr_msg;
+	String expected=r.EmailErr_msg;
 	 Assert.assertEquals(Actual, expected);
 	
 		
